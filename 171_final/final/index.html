@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>map & brush</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+
+<!-- WRAPPER -->
+<div class="container-fluid" style="height: 100vh; padding-top: 1vh">
+    <div class="row">
+        <div class="col-10 offset-1" style="border: thin solid grey; border-radius: 5px;">
+
+            <!-- HEADING -->
+            <div class="row d-flex justify-content-center" style="height: 10vh; padding: 0; background: #bdbdbd; border-bottom: thin solid grey">
+                <div class="align-self-center">
+                    <h1>Batting, Pitching, Running, Fielding - A Baseball Tool</h1>
+                </div>
+            </div>
+
+            <div class="row" style="height: 8vh; background: #bdbdbd; padding: 0;">
+                <div class="col-7">
+                    <div class="row justify-content-center" style="height: 100%">
+                        <button id="switchView" class="btn btn-light align-self-center" type="button"
+                                onclick="carouselTimeChange()">Time View
+                        </button>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="row justify-content-center" style="height: 100%">
+                        <button id="switchTypeView" class="btn btn-light align-self-center" type="button"
+                                onclick="carouselTypeChange()">Pitching View
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="row" style="height: 75vh; background: lightgray; padding-left: 1vh;">
+
+                <!-- LEFT -->
+                <div class="col-7">
+                    <div class="row" style="background: lightgrey;">
+                        <div id="stateCarousel" class="carousel slide" data-ride="carousel" style=" width: 100%">
+                            <div class="carousel-inner">
+
+                                <!-- LINE -->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col-auto" style="padding-top: 1.15vh; padding-left: 3vh;">
+                                            <h4 id="lineTitle" style="text-align: right;">Wins by Year</h4>
+                                        </div>
+                                        <div class="col-auto" style="width: 25vh">
+                                            <div class="row justify-content-left" style="width: 100%; height: 100%; padding-top: 1vh">
+                                                <select id='teamSelector' class="custom-select align-self-center" style="width: 100%" onchange="categoryChange()">
+                                                    <option value="ANA" selected>Anaheim Angels</option>
+                                                    <option value="BAL">Baltimore Orioles</option>
+                                                    <option value="BOS">Boston Red Sox</option>
+                                                    <option value="CHW">Chicago White Sox</option>
+                                                    <option value="CLE">Cleveland Indians</option>
+                                                    <option value="DET">Detroit Tigers</option>
+                                                    <option value="KCR">Kansas City Royals</option>
+                                                    <option value="MIN">Minnesota Twins</option>
+                                                    <option value="NYY">New York Yankees</option>
+                                                    <option value="OAK">Oakland Athletics</option>
+                                                    <option value="SEA">Seattle Mariners</option>
+                                                    <option value="TBD">Tampa Bay Devil Rays</option>
+                                                    <option value="TEX">Texas Rangers</option>
+                                                    <option value="TOR">Toronto Blue Jays</option>
+                                                    <option value="ARI">Arizona Diamondbacks</option>
+                                                    <option value="ATL">Atlanta Braves</option>
+                                                    <option value="CHC">Chicago Cubs</option>
+                                                    <option value="CIN">Cincinnati Reds</option>
+                                                    <option value="COL">Colorado Rockies</option>
+                                                    <option value="FLA">Florida Marlins</option>
+                                                    <option value="HOU">Houston Astros</option>
+                                                    <option value="LAD">Los Angeles Dodgers</option>
+                                                    <option value="MIL">Milwaukee Brewers</option>
+                                                    <option value="WSN">Montreal Expos</option>
+                                                    <option value="NYM">New York Mets</option>
+                                                    <option value="PHI">Philadelphia Phillies</option>
+                                                    <option value="PIT">Pittsburgh Pirates</option>
+                                                    <option value="SDP">San Diego Padres</option>
+                                                    <option value="SFG">San Francisco Giants</option>
+                                                    <option value="STL">St. Louis Cardinals</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-1" style="padding-top: 1.5vh">
+                                            <h7 id="filter" style="text-align: right; width: 100%">filter: </h7>
+                                        </div>
+                                        <div class="col-2" style="width: 100%">
+                                            <div class="row justify-content-right" style="width: 100%; height: 100%; padding-left: 1vh; padding-top: 1vh">
+                                                <div id="slider" class="align-self-center" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row" style="height: 25vh; background: lightgrey; padding-left: 1vh; padding-right: 1vh; padding-top: 1vh;">
+                                            <div id="lineDiv"
+                                                 style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-left" style="width: 100%; height: 5vh; padding-top: 1vh">
+                                            <div class="col-auto" style="width: 15vh;">
+                                                <h4 id="compareTitle" style="text-align: right;">Comparison</h4>
+                                            </div>
+                                            <div class="col-auto">
+                                                <select id='teamSelector2' class="custom-select align-self-center" style="width: 100%" onchange="categoryChange()">
+                                                    <option value="ANA">Anaheim Angels</option>
+                                                    <option value="BAL" selected>Baltimore Orioles</option>
+                                                    <option value="BOS">Boston Red Sox</option>
+                                                    <option value="CHW">Chicago White Sox</option>
+                                                    <option value="CLE">Cleveland Indians</option>
+                                                    <option value="DET">Detroit Tigers</option>
+                                                    <option value="KCR">Kansas City Royals</option>
+                                                    <option value="MIN">Minnesota Twins</option>
+                                                    <option value="NYY">New York Yankees</option>
+                                                    <option value="OAK">Oakland Athletics</option>
+                                                    <option value="SEA">Seattle Mariners</option>
+                                                    <option value="TBD">Tampa Bay Devil Rays</option>
+                                                    <option value="TEX">Texas Rangers</option>
+                                                    <option value="TOR">Toronto Blue Jays</option>
+                                                    <option value="ARI">Arizona Diamondbacks</option>
+                                                    <option value="ATL">Atlanta Braves</option>
+                                                    <option value="CHC">Chicago Cubs</option>
+                                                    <option value="CIN">Cincinnati Reds</option>
+                                                    <option value="COL">Colorado Rockies</option>
+                                                    <option value="FLA">Florida Marlins</option>
+                                                    <option value="HOU">Houston Astros</option>
+                                                    <option value="LAD">Los Angeles Dodgers</option>
+                                                    <option value="MIL">Milwaukee Brewers</option>
+                                                    <option value="WSN">Montreal Expos</option>
+                                                    <option value="NYM">New York Mets</option>
+                                                    <option value="PHI">Philadelphia Phillies</option>
+                                                    <option value="PIT">Pittsburgh Pirates</option>
+                                                    <option value="SDP">San Diego Padres</option>
+                                                    <option value="SFG">San Francisco Giants</option>
+                                                    <option value="STL">St. Louis Cardinals</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="height: 40vh; background: lightgrey; padding: 1vh;">
+                                            <div id="compareDiv"
+                                                 style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MAIN BAR -->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <div class="col-auto" style="padding-top: 1.15vh; padding-left: 3vh;">
+                                            <h4 id="barTitle" style="text-align: right;">Wins by Team</h4>
+                                        </div>
+                                        <div class="col-auto" style="width: 12vh">
+                                            <div class="row justify-content-left" style="width: 100%; height: 100%; padding-top: 1vh">
+                                                <select id='categorySelector' class="custom-select align-self-center" style="width: 100%" onchange="categoryChange()">
+                                                    <option value="1998" selected>1998</option>
+                                                    <option value="1999">1999</option>
+                                                    <option value="2000">2000</option>
+                                                    <option value="2001">2001</option>
+                                                    <option value="2002">2002</option>
+                                                    <option value="2003">2003</option>
+                                                    <option value="2004">2004</option>
+                                                    <option value="2005">2005</option>
+                                                    <option value="2006">2006</option>
+                                                    <option value="2007">2007</option>
+                                                    <option value="2008">2008</option>
+                                                    <option value="2009">2009</option>
+                                                    <option value="2010">2010</option>
+                                                    <option value="2011">2011</option>
+                                                    <option value="2012">2012</option>
+                                                    <option value="2013">2013</option>
+                                                    <option value="2014">2014</option>
+                                                    <option value="2015">2015</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"></div>
+                                        <div class="col-1" style="padding-top: 1.5vh">
+                                            <h7 id="filter" style="text-align: right; width: 100%">filter: </h7>
+                                        </div>
+                                        <div class="col-2" style="width: 15vh">
+                                            <div class="row justify-content-right" style="width: 100%; height: 100%; padding-top: 1vh">
+                                                <select id='filterSelector' class="custom-select align-self-center" style="width: 100%" onchange="categoryChange()">
+                                                    <option value="all" selected>All</option>
+                                                    <option value="10">Top 20</option>
+                                                    <option value="20">Top 10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row" style="height: 70vh; background: lightgrey; padding: 1vh;">
+                                            <div id="barDiv"
+                                                 style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-5">
+                    <div class="row justify-content-center" style="height: 5vh; padding: 1vh">
+                        <select id='dataSelector' class="custom-select align-self-center" style="width: 40%" onchange="categoryChange()">
+                            <option value="wins" selected>Wins</option>
+                            <option value="hits">Hits</option>
+                            <option value="runs">Runs</option>
+                            <option value="homeruns">Homeruns</option>
+                            <option value="walks">Walks</option>
+                            <option value="SOTaken">Strikeouts Taken</option>
+                            <option value="stolenBases">Stolen Bases</option>
+                            <option value="caughtStealing">Caught Stealing</option>
+                            <option value="ERA">Earned Run Average</option>
+                            <option value="hitsAllow">Hits Allowed</option>
+                            <option value="homerunsAllow">Homeruns Allowed</option>
+                            <option value="walksAllow">Walks Allowed</option>
+                            <option value="SOPitch">Strikeouts Pitched</option>
+                            <option value="errors">Errors</option>
+                        </select>
+                    </div>
+                    <div class="row" style="margin-right: -4.5vh">
+                        <div class="col" style="height: 70vh; width:100%">
+                            <div class="row"
+                                 style="height: 20%; width:100%; background: lightgrey; padding-left: 0.5vh; padding-bottom: 1vh; padding-right: 1.5vh; padding-top: 1vh;">
+                                <div class="col"
+                                     style="width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4)">
+                                    <div id="descriptDiv"  style="width:100%; margin-top: 0.75vh"></div>
+                                </div>
+                            </div>
+                            <div class="row" style="height: 100%; width:100%;">
+                                <div id="typeCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+                                    <div class="carousel-inner">
+
+                                        <!-- BATTING -->
+                                        <div class="carousel-item active">
+                                            <div class="row" style="height: 28vh; width:100%; padding-left: 2vh; padding-bottom: 1vh; padding-right: 0vh; padding-top: 0vh;">
+                                                <div class="col"
+                                                     style="width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4)">
+                                                    <div class="row" style="height: 100%; width:100%">
+                                                        <div id="scatterBatDiv" class="align-self-center" style="height: 100%; width:100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="height: 28vh; width:100%; background: lightgrey; padding-left: 2vh; padding-bottom: 1vh; padding-right: 0vh; padding-top: 0vh">
+                                                <div id="scatterBatDiv2" class="align-self-center" style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4)"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- PITCHING -->
+                                        <div class="carousel-item">
+                                            <div class="row" style="height: 28vh; width:100%; padding-left: 2vh; padding-bottom: 1vh; padding-right: 0vh; padding-top: 0vh;">
+                                                <div class="col"
+                                                     style="width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4)">
+                                                    <div class="row" style="height: 100%; width:100%">
+                                                        <div id="scatterPitchDiv" class="align-self-center" style="height: 100%; width:100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="height: 28vh; width:100%; background: lightgrey; padding-left: 2vh; padding-bottom: 1vh; padding-right: 0vh; padding-top: 0vh">
+                                                <div id="scatterPitchDiv2" class="align-self-center" style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 offset-1" style="height: 100%">
+            <p style="font-size: .8em">Definitions from https://www.mlb.com/glossary</p>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- - - - - - - - - - - - >
+<    Load JS libraries     >
+<- - - - - - - - - - - - -->
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.min.js"
+        integrity="sha512-mZXUH8DAODwCHioWP3gltQwa953LbABMlzTYwYkKqv8eNxOk37B1HgNNuCMfFxgrpW5C34WJbxPDcM58+s1dJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- d3 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-geo.v2.min.js"></script>
+
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+<!-- OWN JS -->
+<script src="js/helpers.js"></script>
+<script src="js/barVis.js"></script>
+<script src="js/lineVis.js"></script>
+<script src="js/scatterVis.js"></script>
+<script src="js/descriptVis.js"></script>
+<script src="js/compareVis.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

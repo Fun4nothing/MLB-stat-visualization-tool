@@ -1,0 +1,46 @@
+.tooltip {
+    position: absolute;
+    text-align: center;
+    font: 12px sans-serif;
+    /*  pointer-events: none;	This line needs to be removed */
+}
+.tooltip h3,h4 {
+    text-align: left;
+}
+.tooltip h4 {
+    font: 14px sans-serif;
+}
+
+.table {
+    font-size: 0.7em;
+}
+
+.x-axis, .y-axis {
+    font-size: .5em;
+}
+
+.range-slider-value {
+    background-color: #EFE9E9;
+    color: #888;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 2px 4px;
+    font-size: 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.noUi-connect {
+    background: #4279AB;
+}
+
+.noUi-handle {
+    width: 10px !important;
+    right: -5px !important;
+    box-shadow: none;
+}
+
+.noUi-handle:before, .noUi-handle:after {
+    display: none;
+}
